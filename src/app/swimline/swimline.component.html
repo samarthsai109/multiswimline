@@ -1,0 +1,28 @@
+<button mat-raised-button (click)="addRow()">New Step</button>
+<mat-form-field  style="width:200px">
+    <mat-label>Select an option</mat-label>
+    <mat-select [(value)]="selected" (selectionChange)="addColumn()">
+      <mat-option>None</mat-option>
+      <mat-option value="Voice">Voice</mat-option>
+      <mat-option value="Web">Web</mat-option>
+      <mat-option value="Email">Email</mat-option>
+      <mat-option value="SMS">SMS</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+<table mat-table [dataSource]="data" class="mat-elevation-z8" border="1" >
+    <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center;"> {{column}}</th>
+        <td td mat-cell *matCellDef="let element;let j = index"  (click)="highlight(column,j)">  {{element[column] }}
+           
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnsToDisplay; let i = index"
+    [ngClass]="{'highlight': selectedRowIndex == i}" 
+    tabindex="999"  style="text-align: center;"
+    (keydown.arrowdown)="arrowDownEvent(selectedRowIndex)"
+    (keydown.arrowup)="arrowUpEvent(selectedRowIndex)"></tr>
+</table>
+

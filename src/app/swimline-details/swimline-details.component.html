@@ -1,0 +1,206 @@
+<div class="container">
+    <div class="row" style="height: 20px;" >
+      
+    </div>
+    <div class="row" *ngIf="channelType">
+      <h3>
+        Edit 
+      </h3>
+    </div>
+    <div class="row">
+  <div class="container" *ngIf="channelType === 'Voice'">
+    <form [formGroup]="voiceForm" novalidate>
+          <div class="form-group">
+            <label>Description: </label>
+            <input class="form-control" formControlName="description">
+          </div>
+          <div *ngIf="voiceForm.controls['description'].invalid && (voiceForm.controls['description'].dirty || voiceForm.controls['description'].touched)" class="alert alert-danger">
+              <div *ngIf="voiceForm.controls['description'].errors.required">
+              Description is required.
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Phone Number:</label>
+            <input class="form-control" formControlName="pNumber" [pattern]="mobNumberPattern" type="text">
+        </div>
+        <div *ngIf="voiceForm.controls['pNumber'].invalid && (voiceForm.controls['pNumber'].dirty || voiceForm.controls['pNumber'].touched)" class="alert alert-danger">
+            <div *ngIf="voiceForm.controls['pNumber'].errors.required">
+              Phone Number is required.
+            </div>
+        </div>
+        <div class="form-group">
+          <label>Expect to hear:</label>
+          <input class="form-control" formControlName="expect" type="text">
+        </div>
+        <div *ngIf="voiceForm.controls['expect'].invalid && (voiceForm.controls['expect'].dirty || voiceForm.controls['expect'].touched)" class="alert alert-danger">
+          <div *ngIf="voiceForm.controls['expect'].errors.required">
+            Expect to hear is required.
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Reply:</label>
+          <input class="form-control" formControlName="reply" type="text">
+        </div>
+        <div *ngIf="voiceForm.controls['reply'].invalid && (voiceForm.controls['reply'].dirty || voiceForm.controls['reply'].touched)" class="alert alert-danger">
+          <div *ngIf="voiceForm.controls['reply'].errors.required">
+            Reply is required.
+          </div>
+        </div>
+        <button type="submit" (click)="storeToLocalStorage()"
+              [disabled]="voiceForm.pristine || voiceForm.invalid" class="btn btn-success">
+              Save
+          </button>
+    </form>
+  </div>
+  
+  <div class="container" *ngIf="channelType === 'Web'">
+    <form [formGroup]="webForm" novalidate>
+          <div class="form-group">
+            <label class="center-block">Description: </label>
+            <input class="form-control" formControlName="description">
+          </div>
+          <div *ngIf="webForm.controls['Ddscription'].invalid && (webForm.controls['description'].dirty || webForm.controls['escription'].touched)" class="alert alert-danger">
+              <div *ngIf="webForm.controls['description'].errors.required">
+              Description is required.
+            </div>
+          </div>
+          <div class="form-group">
+            <label>URL:</label>
+            <input class="form-control" formControlName="url" type="text">
+        </div>
+        <div *ngIf="webForm.controls['url'].invalid && (webForm.controls['url'].dirty || webForm.controls['url'].touched)" class="alert alert-danger">
+            <div *ngIf="webForm.controls['url'].errors.required">
+              URL is required.
+            </div>
+        </div>
+        <div class="form-group">
+          <label>Expect:</label>
+          <input class="form-control" formControlName="expect" type="text">
+        </div>
+        <div *ngIf="webForm.controls['expect'].invalid && (webForm.controls['expect'].dirty || webForm.controls['expect'].touched)" class="alert alert-danger">
+          <div *ngIf="webForm.controls['expect'].errors.required">
+            Expect is required.
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Reply:</label>
+          <input class="form-control" formControlName="reply" type="text">
+        </div>
+        <div *ngIf="webForm.controls['reply'].invalid && (webForm.controls['reply'].dirty || webForm.controls['reply'].touched)" class="alert alert-danger">
+          <div *ngIf="webForm.controls['reply'].errors.required">
+            Reply is required.
+          </div>
+        </div>
+        <button type="submit" (click)="storeToLocalStorage()"
+              [disabled]="webForm.pristine || webForm.invalid" class="btn btn-success">
+              Save
+          </button>
+    </form>
+  </div>
+  
+  <div class="container" *ngIf="channelType === 'Email'">
+    
+    <form [formGroup]="emailForm" novalidate>
+          <div class="form-group">
+            <label class="center-block">Description:
+              
+            </label>
+            <input class="form-control" formControlName="description">
+          </div>
+          <div *ngIf="emailForm.controls['description'].invalid && (emailForm.controls['description'].dirty || emailForm.controls['description'].touched)" class="alert alert-danger">
+              <div *ngIf="emailForm.controls['description'].errors.required">
+              Description is required.
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email Address:</label>
+            <input class="form-control" formControlName="email" type="text">
+        </div>
+        <div *ngIf="emailForm.controls['email'].invalid && (emailForm.controls['email'].dirty || emailForm.controls['email'].touched)" class="alert alert-danger">
+            <div *ngIf="emailForm.controls['email'].errors.required">
+              Email is required.
+            </div>
+        </div>
+        <div class="form-group">
+          <label>Subject:</label>
+          <input class="form-control" formControlName="subject" type="text">
+        </div>
+        <div *ngIf="emailForm.controls['subject'].invalid && (emailForm.controls['subject'].dirty || emailForm.controls['subject'].touched)" class="alert alert-danger">
+          <div *ngIf="emailForm.controls['subject'].errors.required">
+            Expect to hear is required.
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Body:</label>
+          <input class="form-control" formControlName="body" type="text">
+        </div>
+        <div *ngIf="emailForm.controls['body'].invalid && (emailForm.controls['body'].dirty || emailForm.controls['body'].touched)" class="alert alert-danger">
+          <div *ngIf="emailForm.controls['body'].errors.required">
+            Reply is required.
+          </div>
+        </div>
+        <button type="submit" (click)="storeToLocalStorage()"
+              [disabled]="emailForm.pristine || emailForm.invalid" class="btn btn-success">
+              Save
+          </button>
+    </form>
+  </div>
+  
+  <div class="container" *ngIf="channelType === 'SMS'">
+    
+    <form [formGroup]="smForm" novalidate>
+          <div class="form-group">
+            <label class="center-block">Description:
+              
+            </label>
+            <input class="form-control" formControlName="description">
+          </div>
+          <div *ngIf="smForm.controls['description'].invalid && (smForm.controls['description'].dirty || smForm.controls['description'].touched)" class="alert alert-danger">
+              <div *ngIf="smForm.controls['description'].errors.required">
+              Description is required.
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="center-block">Phone Number:
+              
+            </label>
+            <input class="form-control" formControlName="phoneNumber">
+          </div>
+          <div *ngIf="smForm.controls['phoneNumber'].invalid && (smForm.controls['phoneNumber'].dirty || smForm.controls['phoneNumber'].touched)" class="alert alert-danger">
+              <div *ngIf="smForm.controls['phoneNumber'].errors.required">
+                phoneNumber is required.
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="center-block">Expect:
+              
+            </label>
+            <input class="form-control" formControlName="expect">
+          </div>
+          <div *ngIf="smForm.controls['expect'].invalid && (smForm.controls['expect'].dirty || smForm.controls['expect'].touched)" class="alert alert-danger">
+              <div *ngIf="smForm.controls['expect'].errors.required">
+                Expect is required.
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="center-block">Reply:
+              
+            </label>
+            <input class="form-control" formControlName="reply">
+          </div>
+          <div *ngIf="smForm.controls['reply'].invalid && (smForm.controls['reply'].dirty || smForm.controls['reply'].touched)" class="alert alert-danger">
+              <div *ngIf="smForm.controls['reply'].errors.required">
+                Reply is required.
+            </div>
+          </div>
+        <button type="submit" (click)="storeToLocalStorage()"
+              [disabled]="smForm.pristine || smForm.invalid" class="btn btn-success">
+              Save
+          </button>
+    </form>
+  </div>
+  
+    </div>
+  </div>
+  

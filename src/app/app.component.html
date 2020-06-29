@@ -1,0 +1,37 @@
+<div class="container border p-5" >
+  <div class="row">
+
+  </div>
+  <div class="row" style="border-color: black;">
+    <div class="col-9">
+      <app-swimline (selectedValue)="handleResults($event)" [retrieveData]="savedData"></app-swimline>
+    </div>
+    <div class="col">
+      <app-swimline-details [channelType]="channel" (getSavedData)="getData($event)"></app-swimline-details>
+    </div>
+  </div>
+</div>
+
+
+<div class="container border p-5" >
+  <div class="row">
+      <ul>
+          <li><strong>Dynamic Table Usage Instructions</strong></li>
+          <li> select the channelType by selecting the dropdown (Select an option)   </li>
+          <li> Click on "New Step to add dynamic columns to the table" </li>
+          <li> Repeat the above steps to add multiple(duplicate allowed) columns/rows to the table </li>
+          <li> Click on the Table cell to update data into the cell </li>
+          <li> When clicked on the Table cell, Form will be visible based on the type of Channel clicked</li>
+          <li> Click on submit data to save data to LocalStorage and update the table cell as well</li>
+          <li> By clicking on the cell, row will also be Highlighted</li>
+          <li> Use UP/DOWN key arrow to view the updated data</li>
+
+          <li><strong>Features Planned</strong></li>
+          <li> Implement validations for all mandatory fields</li> 
+          <li> When data is updated in table cell, duplicate columsn are being updated. Planned to add hidden Field to column and update only the particular cell </li> 
+          <li> Planned to move all interfaces to separate file and implment abstractions to avoid duplicate properties </li>
+          <li> Code refactoring to different files for reusability </li>
+      </ul>
+  </div>
+  
+</div>
