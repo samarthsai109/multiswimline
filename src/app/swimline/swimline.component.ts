@@ -103,7 +103,6 @@ export class SwimlineComponent implements OnInit, OnChanges {
       this.data.push(tempRowData[0]);
 
     } else {
-
       tempRowData =  this.manufactureArray(this.columnsToDisplay.slice(), this.data.length + 1);
       this.data = this.data.concat(tempRowData);
     }
