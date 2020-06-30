@@ -15,14 +15,12 @@ export class SwimlineComponent implements OnInit, OnChanges {
   columnsToDisplay: Array<String> = []; //Bind columns to Datatable
   selectedRowIndex: any;
   data = [];
-  //dataTemp:string[][];
   selected: string='';
   selectedColumnName: string;
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-   // this.dataTemp = [];
-    //console.log(this.retrieveData);
+
   }
 
   //ngOnChanges to bind the description value into Table cell

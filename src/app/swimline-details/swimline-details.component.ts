@@ -38,6 +38,7 @@ export interface Email {
 export class SwimlineDetailsComponent implements OnInit {
   @Input() public channelType: string;
   @Output() public getSavedData = new EventEmitter<any>();
+  submitted = false;
 
   //variable of type Interfaces
   sms: SMS;
@@ -59,35 +60,35 @@ export class SwimlineDetailsComponent implements OnInit {
   
   
   constructor(private fb: FormBuilder) {
-    this.createForm();
+    
   }
 
   
   createForm() {
     this.voiceForm = this.fb.group({
-      description: [''],
-      pNumber: ['', Validators.required],
+      description: ['', [Validators.required, Validators.minLength(6)]],
+      pNumber: ['', [Validators.required, Validators.pattern("^((\\+60-?)|0)?[0-9]{10}$")]],
       expect: [''],
       reply: [''],
     });
 
     this.webForm = this.fb.group({
-      description: [''],
+      description: ['', Validators.required],
       url: ['', Validators.required],
       expect: [''],
       reply: ['']
     });
 
     this.smForm = this.fb.group({
-      description: [''],
-      phoneNumber: ['', Validators.required],
+      description: ['', Validators.required],
+      phoneNumber: ['', [Validators.required, Validators.pattern("^((\\+60-?)|0)?[0-9]{10}$")]],
       expect: [''],
       reply: ['']
     });
 
     this.emailForm = this.fb.group({
-      description: [''],
-      email: ['', Validators.required],
+      description: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       subject: [''],
       body: [''],
 
@@ -95,8 +96,14 @@ export class SwimlineDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    this.createForm();
   }
+
+  get v() { return this.voiceForm.controls; }
+  get e() { return this.emailForm.controls; }
+  get w() { return this.webForm.controls; }
+  get s() { return this.smForm.controls; }
+
 
   //Fetching data from localstorage based on the Table cell click 
   get(){
@@ -107,27 +114,47 @@ export class SwimlineDetailsComponent implements OnInit {
 
   //Saving data to LocalStorage based on the Table Cell Click
   storeToLocalStorage(){
-    var description = this.voiceForm.value;
+    
 
     switch(this.channelType) { 
       case 'SMS': { 
+        this.submitted = true;  
+        if (this.smForm.invalid) {
+          return;
+        }
          this.favorites.push( this.createSMS());
          this.smForm.reset();
+         this.submitted = false;
          break; 
       } 
       case 'Voice': { 
+        this.submitted = true;  
+        if (this.voiceForm.invalid) {
+          return;
+        }
         this.favorites.push( this.createVoice());
         this.voiceForm.reset();
+        this.submitted = false;
         break; 
       } 
       case 'Web': { 
+        this.submitted = true;  
+        if (this.webForm.invalid) {
+          return;
+        }
          this.favorites.push( this.createWeb());
          this.webForm.reset();
+         this.submitted = false;
          break; 
       } 
       case 'Email': { 
+        this.submitted = true;  
+        if (this.emailForm.invalid) {
+          return;
+        }
          this.favorites.push( this.createEmail());
          this.emailForm.reset();
+         this.submitted = false;
          break; 
       } 
     }
